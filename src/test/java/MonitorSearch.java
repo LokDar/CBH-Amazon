@@ -1,17 +1,23 @@
-import io.github.bonigarcia.wdm.WebDriverManager;
 import model.HomePage;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
 import org.testng.annotations.Test;
+import runner.BaseTest;
 
-public class MonitorSearch {
+
+public class MonitorSearch extends BaseTest {
 
     @Test
-    public void searchMonitor(){
-        WebDriverManager.chromedriver().setup();
-        WebDriver driver = new ChromeDriver();
-        driver.get("https://www.amazon.in/");
-        new HomePage(driver).clickHamburgerMenu();
+    public void searchMonitor() {
+        String actualResult = new HomePage(getDriver()).clickHamburgerMenu()
+                .clickTvCategory()
+                .clickTvMenu()
+                .clickBrandSamsungCheckbox()
+                .clickDropDownSortBy()
+                .clickSortByHighToLow()
+                .clickTvSecondPosition()
+                .checkTextAboutThisItem();
+
+        Assert.assertEquals(actualResult, "About this item");
 
     }
 }
